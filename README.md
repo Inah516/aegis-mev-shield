@@ -13,6 +13,12 @@
 [![Python](https://img.shields.io/badge/Python-3.11+-blue)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
+## Live Detection Feed
+
+![MEV detection feed](docs/dashboard.png)
+*60-min window · 142 attacks detected · $184K extracted · 4 chains · 6 agents*
+
+
 ## What it does
 
 You give Aegis a wallet address (or a contract). Six agents run continuously against the mempool of every chain you monitor:

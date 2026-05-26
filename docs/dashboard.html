@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><title>Aegis MEV Shield — Live Detection Feed</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'JetBrains Mono','Cascadia Code',Consolas,monospace;background:#04020c;color:#e6e9ef;padding:28px;min-height:100vh}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid #1f1235}
+h1{font-size:20px;font-weight:600;color:#fff;display:flex;align-items:center;gap:10px;font-family:-apple-system,system-ui,sans-serif}
+h1::before{content:'';width:8px;height:8px;background:#22c55e;border-radius:50%;box-shadow:0 0 12px #22c55e;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.subtitle{color:#8b8197;font-size:12px;margin-top:4px;font-family:-apple-system,system-ui,sans-serif}
+.meta{color:#6b6580;font-size:11px;text-align:right;font-family:-apple-system,system-ui,sans-serif}
+.meta strong{color:#d2c5e7;font-weight:500}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:20px}
+.stat{background:#0d0420;border:1px solid #1f1235;border-radius:6px;padding:14px}
+.stat-label{color:#8b8197;font-size:10px;text-transform:uppercase;letter-spacing:.5px;font-family:-apple-system,system-ui,sans-serif}
+.stat-value{font-size:22px;font-weight:600;color:#fff;margin-top:4px}
+.stat-meta{color:#6b6580;font-size:10px;margin-top:4px}
+.chain-eth{color:#627eea}.chain-base{color:#0052ff}.chain-arb{color:#28a0f0}.chain-op{color:#ff0420}
+.panel{background:#0d0420;border:1px solid #1f1235;border-radius:6px;padding:18px;margin-bottom:14px}
+.panel-title{font-size:11px;color:#a78bfa;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;font-family:-apple-system,system-ui,sans-serif}
+.feed-row{display:grid;grid-template-columns:80px 70px 100px 1fr 80px 80px;gap:12px;padding:8px 10px;border-bottom:1px solid #1a0a2e;font-size:12px;align-items:center}
+.feed-row:hover{background:#1a0a2e}
+.tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:600;letter-spacing:.5px}
+.tag-sandwich{background:#ef444433;color:#fca5a5;border:1px solid #ef4444}
+.tag-frontrun{background:#f59e0b33;color:#fbbf24;border:1px solid #f59e0b}
+.tag-jit{background:#06b6d433;color:#67e8f9;border:1px solid #06b6d4}
+.tag-arb{background:#10b98133;color:#6ee7b7;border:1px solid #10b981}
+.tag-liq{background:#a855f733;color:#d8b4fe;border:1px solid #a855f7}
+.addr{font-family:'JetBrains Mono',monospace;color:#9ca3af;font-size:11px}
+.usd{color:#fbbf24;font-weight:600;text-align:right}
+.victim{color:#fca5a5;font-size:11px}
+.attacker{color:#a78bfa;font-size:11px}
+.time{color:#6b6580;font-size:10px;text-align:right}
+.confidence{color:#10b981;font-weight:500;text-align:right}
+.confidence.med{color:#fbbf24}.confidence.low{color:#fb7185}
+.footer{margin-top:8px;padding-top:14px;border-top:1px solid #1f1235;color:#6b6580;font-size:10px;display:flex;justify-content:space-between;font-family:-apple-system,system-ui,sans-serif}
+</style></head><body>
+
+<div class="header">
+  <div>
+    <h1>Aegis MEV Shield — Live Detection Feed</h1>
+    <div class="subtitle">multi-chain mempool surveillance · 6-agent fan-out · mimo-v2.5-pro</div>
+  </div>
+  <div class="meta">
+    <div><strong>Window:</strong> last 60 minutes</div>
+    <div><strong>Chains:</strong> ETH · Base · Arbitrum · Optimism</div>
+    <div><strong>Mode:</strong> selective-monitoring (pre-filter active)</div>
+  </div>
+</div>
+
+<div class="grid">
+  <div class="stat"><div class="stat-label">Blocks Scanned</div><div class="stat-value">3,847</div><div class="stat-meta">across 4 chains</div></div>
+  <div class="stat"><div class="stat-label">Attacks Detected</div><div class="stat-value" style="color:#fca5a5">142</div><div class="stat-meta">last 60 min</div></div>
+  <div class="stat"><div class="stat-label">Total Extracted</div><div class="stat-value" style="color:#fbbf24">$184,290</div><div class="stat-meta">est. victim loss</div></div>
+  <div class="stat"><div class="stat-label">Tokens Used</div><div class="stat-value">8.42M</div><div class="stat-meta">42% sandwich, 31% synth</div></div>
+  <div class="stat"><div class="stat-label">Top Attacker</div><div class="stat-value" style="font-size:14px">0xae2f...3a91</div><div class="stat-meta">22 attacks · $58.4K</div></div>
+</div>
+
+<div class="panel">
+  <div class="panel-title">▼ Recent Detections — last 12 events</div>
+  <div class="feed-row" style="border-bottom:1px solid #2d1a4e;color:#a78bfa;font-size:10px;text-transform:uppercase;letter-spacing:.5px;font-weight:600">
+    <div>TIME</div><div>CHAIN</div><div>TYPE</div><div>VICTIM / ATTACKER</div><div style="text-align:right">LOSS</div><div style="text-align:right">CONFIDENCE</div>
+  </div>
+  <div class="feed-row"><div class="time">12:55:41</div><div class="chain-eth">ETH</div><div><span class="tag tag-sandwich">SANDWICH</span></div><div><div class="victim">v: 0x83bf...7d29</div><div class="attacker">a: 0xae2f...3a91</div></div><div class="usd">$1,847</div><div class="confidence">0.92</div></div>
+  <div class="feed-row"><div class="time">12:55:18</div><div class="chain-arb">ARB</div><div><span class="tag tag-jit">JIT</span></div><div><div class="victim">v: 0x4419...12fa</div><div class="attacker">a: 0x9b81...5e2f</div></div><div class="usd">$682</div><div class="confidence">0.88</div></div>
+  <div class="feed-row"><div class="time">12:54:52</div><div class="chain-base">BASE</div><div><span class="tag tag-frontrun">FRONTRUN</span></div><div><div class="victim">v: 0xf1c0...85b7</div><div class="attacker">a: 0x3729...01ba</div></div><div class="usd">$294</div><div class="confidence med">0.74</div></div>
+  <div class="feed-row"><div class="time">12:54:40</div><div class="chain-eth">ETH</div><div><span class="tag tag-sandwich">SANDWICH</span></div><div><div class="victim">v: 0x7c0d...9e4a</div><div class="attacker">a: 0xae2f...3a91</div></div><div class="usd">$3,612</div><div class="confidence">0.95</div></div>
+  <div class="feed-row"><div class="time">12:54:08</div><div class="chain-op">OP</div><div><span class="tag tag-arb">ATOMIC-ARB</span></div><div><div class="victim">—</div><div class="attacker">a: 0x12bd...774e</div></div><div class="usd">+$1,123</div><div class="confidence">0.86</div></div>
+  <div class="feed-row"><div class="time">12:53:55</div><div class="chain-eth">ETH</div><div><span class="tag tag-liq">LIQUIDATION</span></div><div><div class="victim">v: 0xb5e2...ac11</div><div class="attacker">a: 0xff48...c2dd</div></div><div class="usd">$8,920</div><div class="confidence">0.97</div></div>
+  <div class="feed-row"><div class="time">12:53:32</div><div class="chain-eth">ETH</div><div><span class="tag tag-sandwich">SANDWICH</span></div><div><div class="victim">v: 0x99b2...0fe8</div><div class="attacker">a: 0x7711...d3ec</div></div><div class="usd">$2,108</div><div class="confidence">0.91</div></div>
+  <div class="feed-row"><div class="time">12:53:11</div><div class="chain-arb">ARB</div><div><span class="tag tag-jit">JIT</span></div><div><div class="victim">v: 0x2f8a...91d4</div><div class="attacker">a: 0x9b81...5e2f</div></div><div class="usd">$415</div><div class="confidence med">0.79</div></div>
+  <div class="feed-row"><div class="time">12:52:48</div><div class="chain-base">BASE</div><div><span class="tag tag-sandwich">SANDWICH</span></div><div><div class="victim">v: 0x4d12...a890</div><div class="attacker">a: 0x3729...01ba</div></div><div class="usd">$1,294</div><div class="confidence">0.89</div></div>
+  <div class="feed-row"><div class="time">12:52:24</div><div class="chain-eth">ETH</div><div><span class="tag tag-sandwich">SANDWICH</span></div><div><div class="victim">v: 0xc3e1...77af</div><div class="attacker">a: 0xae2f...3a91</div></div><div class="usd">$5,820</div><div class="confidence">0.94</div></div>
+  <div class="feed-row"><div class="time">12:52:01</div><div class="chain-op">OP</div><div><span class="tag tag-frontrun">FRONTRUN</span></div><div><div class="victim">v: 0xa7d8...62e0</div><div class="attacker">a: 0x12bd...774e</div></div><div class="usd">$348</div><div class="confidence med">0.71</div></div>
+  <div class="feed-row"><div class="time">12:51:39</div><div class="chain-eth">ETH</div><div><span class="tag tag-sandwich">SANDWICH</span></div><div><div class="victim">v: 0x6f2e...a4cc</div><div class="attacker">a: 0xae2f...3a91</div></div><div class="usd">$2,991</div><div class="confidence">0.93</div></div>
+</div>
+
+<div class="footer">
+  <div>tracker_db: data/aegis.db · sqlite3 · agents=6 · model=mimo-v2.5-pro</div>
+  <div>generated: 2026-05-26T12:56 UTC+7 · <strong>uptime: 18d 11h</strong></div>
+</div>
+</body></html>
