@@ -1,5 +1,12 @@
 # Aegis MEV Shield
 
+[![CI](https://github.com/Inah516/aegis-mev-shield/actions/workflows/ci.yml/badge.svg)](https://github.com/Inah516/aegis-mev-shield/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/python-3.11%2B-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Powered by Xiaomi MiMo Pro](https://img.shields.io/badge/powered%20by-MiMo%20V2.5%20Pro-ff6700)](https://platform.xiaomimimo.com/)
+[![Chains](https://img.shields.io/badge/chains-ETH%20%7C%20Base%20%7C%20Arb%20%7C%20OP-blueviolet)](#supported-chains)
+
+
 > Continuous mempool surveillance and MEV attack classification across Ethereum, Base, Arbitrum, and Optimism. Six specialized AI agents fan out across pending transactions, classify sandwich / frontrun / JIT / atomic-arb / liquidation / generalized attacks, and surface attribution traces for the affected wallet.
 
 [![MiMo](https://img.shields.io/badge/Powered%20by-Xiaomi%20MiMo%20V2.5-orange)](https://platform.xiaomimimo.com)
