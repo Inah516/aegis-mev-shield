@@ -1,0 +1,37 @@
+{
+  "run_id": "aegis-eth-22948210",
+  "model": "mimo-v2.5-pro",
+  "started_at": "2026-05-25T14:30:00Z",
+  "ended_at": "2026-05-25T14:30:41Z",
+  "wall_clock_seconds": 41,
+  "blocks_scanned": 50,
+  "txs_pre_filter": 4182,
+  "txs_passed_filter": 287,
+  "agents": {
+    "sandwich_detector": {"calls": 50, "tokens": 612400, "duration_ms": 31200},
+    "frontrun_detector": {"calls": 50, "tokens": 408700, "duration_ms": 22400},
+    "jit_liquidity_hunter": {"calls": 50, "tokens": 712300, "duration_ms": 35100},
+    "atomic_arb_tracer": {"calls": 287, "tokens": 2876500, "duration_ms": 78600},
+    "liquidation_spotter": {"calls": 287, "tokens": 2591300, "duration_ms": 71000},
+    "synthesis_reasoner": {"calls": 50, "tokens": 805600, "duration_ms": 41800}
+  },
+  "total_calls": 774,
+  "total_tokens": 8006800,
+  "attacks_classified": 10,
+  "synthesis": {
+    "block_window_risk": 78,
+    "attack_categories": ["sandwich", "atomic_arb", "jit", "liquidation"],
+    "top_attackers": [
+      {"addr": "0xae2f...3a91", "total_profit_usd": 5304, "attack_count": 4, "category": "sandwich"},
+      {"addr": "0x1199...88de", "total_profit_usd": 7440, "attack_count": 1, "category": "liquidation"},
+      {"addr": "0xfb4c...ee71", "total_profit_usd": 3210, "attack_count": 1, "category": "atomic_arb"},
+      {"addr": "0x6dd5...0fa2", "total_profit_usd": 1022, "attack_count": 2, "category": "jit"}
+    ],
+    "top_victims": [
+      {"addr": "0x4b8c...7e02", "loss_usd": 1847, "attack_type": "sandwich"},
+      {"addr": "0x9f3a...c81d", "loss_usd": 1206, "attack_type": "sandwich"},
+      {"addr": "0x77a1...eb35", "loss_usd": 920, "attack_type": "sandwich"},
+      {"addr": "0x335b...df02", "loss_usd": 1331, "attack_type": "sandwich"}
+    ]
+  }
+}
